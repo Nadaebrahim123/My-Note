@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Note — دفاتر و استيكرات بإحساس مختلف</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F4EFE3;
+    --paper-2:#ECE3CF;
+    --ink:#2B2B33;
+    --coral:#E2694C;
+    --coral-dark:#C44F35;
+    --sage:#7C8F5E;
+    --yellow:#F0BD3E;
+    --blue-note:#7FA6B0;
+    --line:rgba(43,43,51,0.16);
+    --shadow: 0 10px 25px rgba(43,43,51,0.12);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Cairo', sans-serif;
+    overflow-x:hidden;
+  }
+  .accent{
+    font-family:'Kalam', cursive;
+  }
+  a{color:inherit;text-decoration:none;}
+
+  /* subtle paper grain */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(43,43,51,0.045) 1px, transparent 0);
+    background-size: 14px 14px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 6%;
+    background:rgba(244,239,227,0.88);
+    backdrop-filter:blur(6px);
+    border-bottom:1px dashed var(--line);
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:800;
+    font-size:1.4rem;
+    letter-spacing:.5px;
+  }
+  .logo span{
+    background:var(--coral);
+    color:var(--paper);
+    width:34px;height:34px;
+    border-radius:6px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Kalam',cursive;
+    transform:rotate(-6deg);
+    box-shadow:var(--shadow);
+  }
+  nav ul{
+    display:flex;
+    gap:28px;
+    list-style:none;
+    margin:0;padding:0;
+    font-weight:600;
+    font-size:.95rem;
+  }
+  nav a{position:relative; padding:4px 0;}
+  nav a::after{
+    content:"";
+    position:absolute;
+    right:0;left:0;bottom:-4px;
+    height:2px;
+    background:var(--coral);
+    transform:scaleX(0);
+    transition:transform .25s ease;
+  }
+  nav a:hover::after{transform:scaleX(1);}
+  .nav-cta{
+    background:var(--ink);
+    color:var(--paper)!important;
+    padding:8px 18px;
+    border-radius:30px;
+    font-weight:700;
+  }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    min-height:92vh;
+    display:flex;
+    align-items:center;
+    padding:0 6%;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:40px;
+    align-items:center;
+    width:100%;
+    z-index:2;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:.85rem;
+    font-weight:700;
+    color:var(--coral-dark);
+    background:rgba(226,105,76,0.12);
+    padding:6px 14px;
+    border-radius:30px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{content:"●"; font-size:.6rem;}
+  h1{
+    font-size:3.6rem;
+    line-height:1.15;
+    font-weight:800;
+    margin:0 0 18px;
+  }
+  h1 .scribble{
+    font-family:'Kalam',cursive;
+    color:var(--coral);
+    font-weight:700;
+    position:relative;
+    display:inline-block;
+  }
+  .hero p.lead{
+    font-size:1.15rem;
+    line-height:1.9;
+    color:rgba(43,43,51,0.78);
+    max-width:520px;
+    margin-bottom:30px;
+  }
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 28px;
+    border-radius:10px;
+    font-weight:700;
+    font-size:1rem;
+    cursor:pointer;
+    border:none;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary{
+    background:var(--coral);
+    color:#fff;
+    box-shadow:var(--shadow);
+  }
+  .btn-primary:hover{transform:translateY(-3px);}
+  .btn-outline{
+    background:transparent;
+    border:2px solid var(--ink);
+    color:var(--ink);
+  }
+  .btn-outline:hover{background:var(--ink); color:var(--paper);}
+
+  /* sticky note stack illustration */
+  .stack{
+    position:relative;
+    height:480px;
+  }
+  .note{
+    position:absolute;
+    width:230px;
+    height:230px;
+    border-radius:3px 3px 60px 3px;
+    box-shadow:0 18px 30px rgba(43,43,51,0.18);
+    padding:24px;
+    font-family:'Kalam',cursive;
+    font-size:1.15rem;
+    line-height:1.5;
+    color:rgba(43,43,51,0.85);
+    transition:transform .4s ease;
+  }
+  .note:hover{transform:translateY(-10px) rotate(0deg) !important;}
+  .note.n1{background:var(--yellow); top:10px; right:30px; transform:rotate(-7deg); z-index:3;}
+  .note.n2{background:var(--coral); color:#fff; top:120px; right:230px; transform:rotate(6deg); z-index:2; width:200px; height:200px;}
+  .note.n3{background:var(--blue-note); top:250px; right:40px; transform:rotate(4deg); z-index:1; width:190px;height:190px;}
+  .note.n4{background:var(--sage); color:#fff; top:-30px; right:200px; transform:rotate(-3deg); z-index:0; width:170px; height:170px;}
+
+  section{padding:110px 6%; position:relative; z-index:1;}
+  .section-head{max-width:640px; margin-bottom:60px;}
+  .section-head .tag{
+    font-family:'Kalam',cursive;
+    color:var(--coral-dark);
+    font-size:1.2rem;
+    display:block;
+    margin-bottom:6px;
+  }
+  .section-head h2{font-size:2.4rem; margin:0 0 14px; font-weight:800;}
+  .section-head p{font-size:1.05rem; color:rgba(43,43,51,0.7); line-height:1.8; margin:0;}
+
+  /* PRODUCTS */
+  .products{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:26px;
+  }
+  .pcard{
+    background:#fff;
+    border-radius:16px;
+    padding:30px 24px;
+    box-shadow:var(--shadow);
+    border:1px solid var(--line);
+    transition:transform .3s ease, box-shadow .3s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .pcard:hover{transform:translateY(-8px); box-shadow:0 20px 35px rgba(43,43,51,0.18);}
+  .pcard .icon{
+    width:58px;height:58px;
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.7rem;
+    margin-bottom:20px;
+  }
+  .pcard.c1 .icon{background:rgba(226,105,76,0.15); color:var(--coral-dark);}
+  .pcard.c2 .icon{background:rgba(240,189,62,0.2); color:#9c7611;}
+  .pcard.c3 .icon{background:rgba(124,143,94,0.18); color:#54622f;}
+  .pcard.c4 .icon{background:rgba(127,166,176,0.2); color:#3c6873;}
+  .pcard h3{font-size:1.25rem; margin:0 0 10px; font-weight:700;}
+  .pcard p{font-size:.92rem; color:rgba(43,43,51,0.65); line-height:1.7; margin:0 0 18px;}
+  .pcard .price{font-weight:800; font-family:'Kalam',cursive; font-size:1.1rem; color:var(--coral-dark);}
+
+  /* ABOUT / SIGNATURE STRIP */
+  .strip{
+    background:var(--ink);
+    color:var(--paper);
+    padding:90px 6%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+  }
+  .strip h2{font-size:2.2rem; margin:0 0 20px; font-weight:800;}
+  .strip p{line-height:1.9; color:rgba(244,239,227,0.78); font-size:1.05rem;}
+  .strip .stats{display:flex; gap:40px; margin-top:30px;}
+  .strip .stat b{display:block; font-size:2.2rem; font-family:'Kalam',cursive; color:var(--yellow);}
+  .strip .stat span{font-size:.85rem; color:rgba(244,239,227,0.6);}
+  .torn{
+    position:relative;
+    background:var(--paper-2);
+    border-radius:10px;
+    padding:36px;
+    color:var(--ink);
+    font-family:'Kalam',cursive;
+    font-size:1.3rem;
+    line-height:1.8;
+    transform:rotate(-2deg);
+    box-shadow:var(--shadow);
+  }
+  .torn::before{
+    content:"My Note";
+    position:absolute;
+    top:-16px; right:30px;
+    background:var(--coral);
+    color:#fff;
+    padding:6px 16px;
+    border-radius:6px;
+    font-size:.9rem;
+    font-weight:800;
+    font-family:'Cairo',sans-serif;
+  }
+
+  /* GALLERY */
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  .gitem{
+    border-radius:18px;
+    height:260px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:flex-end;
+    padding:22px;
+    font-weight:700;
+    color:#fff;
+    box-shadow:var(--shadow);
+  }
+  .gitem span{font-family:'Kalam',cursive; font-size:1.3rem;}
+  .gitem.g1{background:linear-gradient(160deg,var(--coral),var(--coral-dark));}
+  .gitem.g2{background:linear-gradient(160deg,var(--sage),#5b6b3f);}
+  .gitem.g3{background:linear-gradient(160deg,var(--blue-note),#4c7a85);}
+  .gitem.g4{background:linear-gradient(160deg,var(--yellow),#c98f12); color:var(--ink);}
+  .gitem.g5{background:linear-gradient(160deg,#b08968,#7a5a3a);}
+  .gitem.g6{background:linear-gradient(160deg,#9c89b8,#6b5494);}
+
+  /* NEWSLETTER */
+  .cta-band{
+    text-align:center;
+    background:var(--coral);
+    color:#fff;
+    border-radius:24px;
+    margin:0 6% 100px;
+    padding:70px 30px;
+    position:relative;
+    overflow:hidden;
+  }
+  .cta-band h2{font-size:2.2rem; margin:0 0 14px; font-weight:800;}
+  .cta-band p{margin:0 0 30px; opacity:.9; font-size:1.05rem;}
+  .cta-form{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .cta-form input{
+    padding:14px 18px;
+    border-radius:10px;
+    border:none;
+    width:280px;
+    font-family:'Cairo',sans-serif;
+    font-size:.95rem;
+  }
+  .cta-form button{
+    background:var(--ink);
+    color:#fff;
+    border:none;
+    padding:14px 26px;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+  }
+
+  footer{
+    padding:50px 6% 30px;
+    border-top:1px dashed var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+    font-size:.9rem;
+    color:rgba(43,43,51,0.65);
+  }
+  footer .flogo{font-weight:800; color:var(--ink); font-size:1.1rem;}
+  .socials{display:flex; gap:14px;}
+  .socials a{
+    width:36px;height:36px;
+    border-radius:50%;
+    background:var(--ink);
+    color:var(--paper);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.9rem;
+  }
+
+  @media (max-width: 980px){
+    .hero-grid{grid-template-columns:1fr;}
+    .stack{display:none;}
+    h1{font-size:2.6rem;}
+    .products{grid-template-columns:repeat(2,1fr);}
+    .gallery{grid-template-columns:repeat(2,1fr);}
+    .strip{grid-template-columns:1fr;}
+    nav ul{display:none;}
+  }
+  @media (max-width:560px){
+    .products{grid-template-columns:1fr;}
+    .gallery{grid-template-columns:1fr;}
+    h1{font-size:2.1rem;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none!important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span>M</span> My Note</div>
+  <nav>
+    <ul>
+      <li><a href="#products">المنتجات</a></li>
+      <li><a href="#about">عن البراند</a></li>
+      <li><a href="#gallery">الجاليري</a></li>
+      <li><a href="#contact" class="nav-cta">اطلب دلوقتي</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <span class="eyebrow">صنع بحب للي بيحب يكتب ويلزّق ويرسم</span>
+      <h1>كل فكرة محتاجة <span class="scribble">ورقة صغيرة</span><br>تتمسك فيها</h1>
+      <p class="lead">My Note براند مصري بيصمم دفاتر، نوت بوك، استيكرات، واستيكي نوت بألوان وخطوط تخليك تكتب أكتر وتنسى أقل. كل قطعة متصممة عشان تبقى رفيقة شنطتك ومكتبك.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-primary">شوف المنتجات</a>
+        <a href="#about" class="btn btn-outline">اعرف القصة</a>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="note n4">"اكتب اللي في بالك"</div>
+      <div class="note n2">ابدأ يومك بصفحة بيضا ✏️</div>
+      <div class="note n1">My Note 📝</div>
+      <div class="note n3">لزّق فكرتك هنا</div>
+    </div>
+  </div>
+</section>
+
+<section id="products">
+  <div class="section-head">
+    <span class="tag accent">المجموعة</span>
+    <h2>اختار رفيقك المفضل</h2>
+    <p>من الدفتر اللي يسيبه مكتبك لحد الاستيكي نوت اللي يلزّق على شاشتك، كل قطعة في My Note ليها شخصية.</p>
+  </div>
+  <div class="products">
+    <div class="pcard c1">
+      <div class="icon">📓</div>
+      <h3>دفاتر</h3>
+      <p>دفاتر بأغلفة مرسومة بإيد، ورق سمييك مريح للكتابة، ومقاسات تناسب الشنطة والمكتب.</p>
+      <div class="price">من 95 جنيه</div>
+    </div>
+    <div class="pcard c2">
+      <div class="icon">✨</div>
+      <h3>استيكرات</h3>
+      <p>شيتات استيكرات بتصميمات كيوت ومصرية الروح، تزين بيها لابتوبك ودفترك وأي حاجة تخصك.</p>
+      <div class="price">من 25 جنيه</div>
+    </div>
+    <div class="pcard c3">
+      <div class="icon">📔</div>
+      <h3>نوت بوك</h3>
+      <p>نوت بوكات منظمة بخطوط أو جدول، مناسبة للمذاكرة والشغل والتدوين اليومي.</p>
+      <div class="price">من 70 جنيه</div>
+    </div>
+    <div class="pcard c4">
+      <div class="icon">🗒️</div>
+      <h3>استيكي نوت</h3>
+      <p>ورق لزق بألوان هادية، مثالي للتذكير والتنظيم على المكتب أو الحائط.</p>
+      <div class="price">من 35 جنيه</div>
+    </div>
+  </div>
+</section>
+
+<div class="strip" id="about">
+  <div>
+    <h2>قصة My Note</h2>
+    <p>بدأنا من حاجة بسيطة: حب الورق والقرطاسية اللي تخليك حاسس إنك بتكتب بإحساس، مش بس بتدوّن. كل تصميم بيتعمل بإيدينا، نشوف فيه التفاصيل الصغيرة اللي تفرق — لون، خط، شكل غلاف.</p>
+    <p>هدفنا إن My Note يكون جزء من روتينك اليومي، سواء بتكتب أهدافك، تنظم شغلك، أو بس عايز تلزّق فكرة سريعة قبل ما تطير منك.</p>
+    <div class="stats">
+      <div class="stat"><b>+40</b><span>تصميم مختلف</span></div>
+      <div class="stat"><b>100%</b><span>صناعة محلية</span></div>
+      <div class="stat"><b>+3000</b><span>عميل سعيد</span></div>
+    </div>
+  </div>
+  <div class="torn">
+    "أحلى فكرة ممكن تيجيلك وانت ماشي... My Note بتضمن إنها توصلك تكتبها قبل ما تنسى."
+  </div>
+</div>
+
+<section id="gallery">
+  <div class="section-head">
+    <span class="tag accent">من الكولكشن</span>
+    <h2>شوف ألوان وتصاميم My Note</h2>
+    <p>كل لون بيحمل إحساس مختلف، اختار اللي يناسب يومك.</p>
+  </div>
+  <div class="gallery">
+    <div class="gitem g1"><span>دفتر "الشروق" 🌅</span></div>
+    <div class="gitem g2"><span>نوت بوك "زيتوني" 🌿</span></div>
+    <div class="gitem g3"><span>استيكي نوت "سما" ☁️</span></div>
+    <div class="gitem g4"><span>استيكرات "شمس" ☀️</span></div>
+    <div class="gitem g5"><span>دفتر "تراب" 🤎</span></div>
+    <div class="gitem g6"><span>نوت بوك "بنفسج" 💜</span></div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:0;">
+  <div class="cta-band">
+    <h2>عايز تكون أول من يعرف بالكولكشن الجديد؟</h2>
+    <p>سجل إيميلك وهنبعتلك أحدث التصاميم والعروض قبل أي حد.</p>
+    <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='تم التسجيل ✓';">
+      <input type="email" placeholder="اكتب إيميلك هنا" required>
+      <button type="submit">سجلني</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">My Note 📝</div>
+  <div class="socials">
+    <a href="#" aria-label="Instagram">IG</a>
+    <a href="#" aria-label="Facebook">FB</a>
+    <a href="#" aria-label="TikTok">TT</a>
+  </div>
+  <div>© 2026 My Note. كل الحقوق محفوظة.</div>
+</footer>
+
+</body>
+</html>
