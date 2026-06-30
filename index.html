@@ -28,8 +28,9 @@
   #intro-screen{
     position:fixed; inset:0; z-index:9999;
     background:linear-gradient(160deg, var(--paper) 0%, var(--paper-2) 100%);
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    display:flex; flex-direction:column; align-items:flex-end; justify-content:center;
     overflow:hidden;
+    padding-right:8%;
     transition:opacity 1s ease, visibility 1s ease;
   }
   #intro-screen.intro-hide{
@@ -44,6 +45,7 @@
     color:var(--pink-bow-dark);
     opacity:0;
     letter-spacing:.5px;
+    text-align:right;
     animation:introFade 1.1s ease forwards;
     animation-delay:.3s;
   }
@@ -54,7 +56,7 @@
     font-size:1.05rem;
     color:var(--ink);
     opacity:0;
-    text-align:center;
+    text-align:right;
     letter-spacing:.3px;
     animation:introFade 1.1s ease forwards;
     animation-delay:1.5s;
@@ -69,7 +71,7 @@
     line-height:1.85;
     color:var(--ink);
     opacity:0;
-    text-align:center;
+    text-align:right;
     animation:introFade 1.1s ease forwards;
     animation-delay:2.2s;
   }
