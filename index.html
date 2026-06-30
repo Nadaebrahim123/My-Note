@@ -286,8 +286,8 @@
     grid-template-columns:1fr;
     gap:40px;
     align-items:center;
-    justify-items:center;
-    text-align:center;
+    justify-items:start;
+    text-align:left;
     width:100%;
     z-index:2;
   }
@@ -331,9 +331,9 @@
     line-height:1.9;
     color:rgba(43,43,51,0.78);
     max-width:560px;
-    margin:0 auto 30px;
+    margin:0 0 30px;
   }
-  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; justify-content:center;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-start;}
   .btn{
     display:inline-flex;
     align-items:center;
@@ -682,7 +682,7 @@
   <div class="hero-grid">
     <div>
       <span class="eyebrow" dir="ltr">✨ Write. Dream. Create.</span>
-      <h1 dir="ltr">Where every <span class="scribble">idea</span> finds a beautiful place 🌸</h1>
+      <h1 dir="ltr">Where every <span class="scribble">idea</span><br>finds a beautiful place 🌸</h1>
       <p class="lead" dir="ltr">Welcome to My Note, where elegance meets creativity. From beautifully designed notebooks and planners to charming stickers and stationery, every piece is crafted with love to inspire your ideas, organize your days, and make every page unforgettable. 📖💕</p>
       <div class="hero-actions">
         <a href="#products" class="btn btn-primary">Explore Collection ✨</a>
