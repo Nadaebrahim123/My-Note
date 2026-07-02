@@ -99,15 +99,19 @@
   .intro-doodles svg{
     position:absolute;
     opacity:0;
-    animation:introDoodle 2.6s ease forwards;
+    animation:introDoodle 2.6s ease forwards, introFloat 6s ease-in-out infinite 2.6s;
   }
   @keyframes introDoodle{
     0%{opacity:0; transform:translateY(14px) rotate(0deg);}
     25%{opacity:1;}
-    100%{opacity:1; transform:translateY(-6px) rotate(var(--r,0deg));}
+    100%{opacity:.6; transform:translateY(0) rotate(var(--r,0deg));}
+  }
+  @keyframes introFloat{
+    0%,100%{ transform:translateY(0) rotate(var(--r,0deg)); }
+    50%{ transform:translateY(-10px) rotate(calc(var(--r,0deg) + 3deg)); }
   }
   @media (prefers-reduced-motion: reduce){
-    .intro-logo, .intro-tagline, .intro-doodles svg{animation:none!important; opacity:1!important; transform:none!important;}
+    .intro-doodles svg{animation:none!important; opacity:.6!important; transform:none!important;}
   }
 
   body{
@@ -240,47 +244,6 @@
     opacity:0;
     transform:translateY(18px);
   }
-  .hero-doodles{
-    position:absolute;
-    inset:0;
-    z-index:0;
-    pointer-events:none;
-  }
-  .hero-doodles svg{
-    position:absolute;
-    opacity:.55;
-    filter:drop-shadow(0 6px 10px rgba(43,43,51,0.08));
-  }
-  .doodle-1{ top:8%; left:4%; width:70px; animation:doodleFloat 7s ease-in-out infinite; }
-  .doodle-2{ top:62%; left:9%; width:54px; animation:doodleFloat 6s ease-in-out infinite .6s; }
-  .doodle-3{ top:18%; left:30%; width:46px; animation:doodleFloat 8s ease-in-out infinite 1s; }
-  .doodle-4{ bottom:10%; left:34%; width:60px; animation:doodleFloat 7.5s ease-in-out infinite .3s; }
-  .doodle-5{ top:5%; right:46%; width:50px; animation:doodleFloat 6.5s ease-in-out infinite .8s; }
-  .doodle-6{ bottom:16%; right:42%; width:64px; animation:doodleFloat 7s ease-in-out infinite 1.2s; }
-  @keyframes doodleFloat{
-    0%,100%{ transform:translateY(0) rotate(var(--r,0deg)); }
-    50%{ transform:translateY(-12px) rotate(calc(var(--r,0deg) + 3deg)); }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .hero-doodles svg{animation:none!important;}
-  }
-
-  /* generic scattered doodles used across other sections */
-  .section-doodles{
-    position:absolute;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-    z-index:0;
-  }
-  .section-doodles svg{
-    position:absolute;
-    opacity:.4;
-    filter:drop-shadow(0 6px 10px rgba(43,43,51,0.08));
-    animation:doodleFloat 7s ease-in-out infinite;
-  }
-  section{ position:relative; }
-  #products, #gallery{ overflow:hidden; }
   .hero-grid{
     display:grid;
     grid-template-columns:1fr;
@@ -480,6 +443,34 @@
     position:relative;
     z-index:1;
   }
+
+  /* STYLE PICKER */
+  .style-tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-bottom:44px;
+    position:relative;
+    z-index:1;
+  }
+  .style-btn{
+    font-family:'Cairo',sans-serif;
+    font-weight:700;
+    font-size:1rem;
+    padding:14px 26px;
+    border-radius:30px;
+    border:2px solid var(--ink);
+    background:transparent;
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .25s ease;
+  }
+  .style-btn:hover{transform:translateY(-3px);}
+  .style-btn.active{
+    background:var(--ink);
+    color:var(--paper);
+    box-shadow:var(--shadow);
+  }
   .gitem{
     border-radius:18px;
     height:260px;
@@ -550,6 +541,87 @@
     font-size:.9rem;
     color:rgba(43,43,51,0.65);
   }
+  .connect-section{
+    padding:0 6% 100px;
+  }
+  .connect-card{
+    max-width:640px;
+    margin:0 auto;
+    text-align:center;
+    background:linear-gradient(160deg, var(--paper-2) 0%, var(--paper) 100%);
+    border:1px solid var(--line);
+    border-radius:28px;
+    padding:64px 40px;
+    box-shadow:var(--shadow);
+  }
+  .connect-mark{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:56px;height:56px;
+    border-radius:50%;
+    background:#fff;
+    font-size:1.5rem;
+    box-shadow:var(--shadow);
+    margin-bottom:22px;
+  }
+  .connect-card h2{
+    font-size:2rem;
+    font-weight:800;
+    margin:0 0 16px;
+  }
+  .connect-card p{
+    font-size:1.02rem;
+    line-height:1.9;
+    color:rgba(43,43,51,0.72);
+    max-width:480px;
+    margin:0 auto 34px;
+  }
+  .connect-links{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+  }
+  .connect-link{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:#fff;
+    color:var(--ink);
+    font-weight:700;
+    font-size:.95rem;
+    padding:13px 26px;
+    border-radius:30px;
+    box-shadow:var(--shadow);
+    transition:transform .2s ease, background .2s ease, color .2s ease;
+  }
+  .connect-link:hover{transform:translateY(-3px);}
+  .connect-icon{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:26px;height:26px;
+    border-radius:50%;
+    flex:none;
+  }
+  .connect-link.wa .connect-icon{background:#25D366; color:#fff;}
+  .connect-link.fb .connect-icon{background:#1877F2; color:#fff;}
+  .connect-link.wa:hover{background:#25D366; color:#fff;}
+  .connect-link.fb:hover{background:#1877F2; color:#fff;}
+
+  .footer-slim{
+    padding:26px 6% 36px;
+    border-top:1px dashed var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    font-size:.88rem;
+    color:rgba(43,43,51,0.6);
+  }
+  .footer-slim .flogo{font-weight:800; color:var(--ink); font-size:1.05rem;}
   footer .flogo{font-weight:800; color:var(--ink); font-size:1.1rem;}
   .socials{display:flex; gap:14px;}
   .socials a{
@@ -586,25 +658,48 @@
 
 <div id="intro-screen">
   <div class="intro-doodles">
-    <svg style="top:22%; left:18%; width:42px; --r:-10deg; animation-delay:2.0s" viewBox="0 0 50 60" xmlns="http://www.w3.org/2000/svg">
+    <!-- notebook -->
+    <svg style="top:16%; left:14%; width:56px; --r:-10deg; animation-delay:1.6s" viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="2" width="52" height="66" rx="6" fill="var(--blue-note)" stroke="var(--ink)" stroke-width="2"/>
+      <line x1="14" y1="20" x2="46" y2="20" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="14" y1="32" x2="46" y2="32" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="14" y1="44" x2="38" y2="44" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="4" cy="14" r="2.4" fill="var(--ink)"/>
+      <circle cx="4" cy="28" r="2.4" fill="var(--ink)"/>
+      <circle cx="4" cy="42" r="2.4" fill="var(--ink)"/>
+      <circle cx="4" cy="56" r="2.4" fill="var(--ink)"/>
+    </svg>
+    <!-- pencil -->
+    <svg style="top:24%; right:16%; width:70px; --r:22deg; animation-delay:1.8s" viewBox="0 0 90 20" xmlns="http://www.w3.org/2000/svg">
+      <rect x="14" y="6" width="62" height="9" rx="2" fill="var(--yellow)" stroke="var(--ink)" stroke-width="2"/>
+      <polygon points="4,10.5 14,4 14,17" fill="#E0A86B" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+      <rect x="76" y="6" width="10" height="9" rx="2" fill="var(--coral)" stroke="var(--ink)" stroke-width="2"/>
+    </svg>
+    <!-- sheet of paper -->
+    <svg style="bottom:24%; left:18%; width:42px; --r:-8deg; animation-delay:2.0s" viewBox="0 0 50 60" xmlns="http://www.w3.org/2000/svg">
       <rect x="4" y="2" width="42" height="56" rx="5" fill="#FFFFFF" stroke="var(--ink)" stroke-width="1.6"/>
       <line x1="12" y1="18" x2="38" y2="18" stroke="var(--paper-2)" stroke-width="1.6" stroke-linecap="round"/>
       <line x1="12" y1="28" x2="38" y2="28" stroke="var(--paper-2)" stroke-width="1.6" stroke-linecap="round"/>
       <line x1="12" y1="38" x2="30" y2="38" stroke="var(--paper-2)" stroke-width="1.6" stroke-linecap="round"/>
     </svg>
-    <svg style="top:28%; right:20%; width:46px; --r:14deg; animation-delay:2.2s" viewBox="0 0 60 16" xmlns="http://www.w3.org/2000/svg">
-      <rect x="8" y="3" width="44" height="9" rx="2.5" fill="var(--pink-bow)" stroke="var(--ink)" stroke-width="1.6" transform="rotate(-18 30 7)"/>
-      <polygon points="2,2 12,-3 14,7 4,12" fill="var(--ink)" stroke="var(--ink)" stroke-width="1" stroke-linejoin="round" transform="rotate(-18 30 7)"/>
+    <!-- fountain pen -->
+    <svg style="bottom:20%; right:14%; width:76px; --r:16deg; animation-delay:2.2s" viewBox="0 0 90 18" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="5" width="68" height="8" rx="3" fill="var(--ink)" />
+      <rect x="10" y="5" width="68" height="8" rx="3" fill="var(--sage)" opacity=".85"/>
+      <polygon points="2,9 10,3 10,15" fill="var(--ink)"/>
+      <rect x="78" y="5" width="8" height="8" rx="2" fill="var(--yellow)" stroke="var(--ink)" stroke-width="1.5"/>
     </svg>
-    <svg style="bottom:26%; left:24%; width:30px; --r:8deg; animation-delay:2.4s" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 2 L24 15 L37 15 L26 23 L30 36 L20 28 L10 36 L14 23 L3 15 L16 15 Z" fill="var(--yellow)" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round"/>
+    <!-- torn note paper -->
+    <svg style="top:10%; left:44%; width:38px; --r:-12deg; animation-delay:2.4s" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 4 H46 V46 H14 L4 36 Z" fill="var(--coral)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M4 36 H14 V46 Z" fill="var(--coral-dark)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>
     </svg>
-    <svg style="bottom:24%; right:22%; width:38px; --r:-6deg; animation-delay:2.6s" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="25" cy="25" r="7" fill="var(--yellow)" stroke="var(--ink)" stroke-width="1.6"/>
-      <ellipse cx="25" cy="8" rx="6" ry="9" fill="var(--pink-bow)" stroke="var(--ink)" stroke-width="1.4"/>
-      <ellipse cx="25" cy="42" rx="6" ry="9" fill="var(--pink-bow)" stroke="var(--ink)" stroke-width="1.4"/>
-      <ellipse cx="8" cy="25" rx="9" ry="6" fill="var(--pink-bow)" stroke="var(--ink)" stroke-width="1.4"/>
-      <ellipse cx="42" cy="25" rx="9" ry="6" fill="var(--pink-bow)" stroke="var(--ink)" stroke-width="1.4"/>
+    <!-- small notepad -->
+    <svg style="bottom:8%; left:46%; width:44px; --r:8deg; animation-delay:2.6s" viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="2" width="52" height="66" rx="6" fill="var(--sage)" stroke="var(--ink)" stroke-width="2"/>
+      <line x1="14" y1="20" x2="46" y2="20" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="14" y1="32" x2="46" y2="32" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="14" y1="44" x2="38" y2="44" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
     </svg>
   </div>
   <div class="intro-logo">🎀 My Note</div>
@@ -627,58 +722,13 @@
   <nav>
     <ul>
       <li><a href="#products">المنتجات</a></li>
-      <li><a href="#gallery">الجاليري</a></li>
-      <li><a href="#contact" class="nav-cta">اطلب دلوقتي</a></li>
+      <li><a href="#style">ستايلك</a></li>
+      <li><a href="#connect" class="nav-cta">اطلب دلوقتي</a></li>
     </ul>
   </nav>
 </header>
 
 <section class="hero">
-  <div class="hero-doodles">
-    <!-- mini notebook -->
-    <svg class="doodle-1" style="--r:-8deg" viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
-      <rect x="4" y="2" width="52" height="66" rx="6" fill="var(--blue-note)" stroke="var(--ink)" stroke-width="2"/>
-      <line x1="14" y1="20" x2="46" y2="20" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="14" y1="32" x2="46" y2="32" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="14" y1="44" x2="38" y2="44" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
-      <circle cx="4" cy="14" r="2.4" fill="var(--ink)"/>
-      <circle cx="4" cy="28" r="2.4" fill="var(--ink)"/>
-      <circle cx="4" cy="42" r="2.4" fill="var(--ink)"/>
-      <circle cx="4" cy="56" r="2.4" fill="var(--ink)"/>
-    </svg>
-    <!-- pencil -->
-    <svg class="doodle-2" style="--r:24deg" viewBox="0 0 90 20" xmlns="http://www.w3.org/2000/svg">
-      <rect x="14" y="6" width="62" height="9" rx="2" fill="var(--yellow)" stroke="var(--ink)" stroke-width="2"/>
-      <polygon points="4,10.5 14,4 14,17" fill="#E0A86B" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
-      <rect x="76" y="6" width="10" height="9" rx="2" fill="var(--coral)" stroke="var(--ink)" stroke-width="2"/>
-    </svg>
-    <!-- sticky paper -->
-    <svg class="doodle-3" style="--r:-10deg" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 4 H46 V46 H14 L4 36 Z" fill="var(--coral)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M4 36 H14 V46 Z" fill="var(--coral-dark)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>
-    </svg>
-    <!-- open book -->
-    <svg class="doodle-4" style="--r:6deg" viewBox="0 0 80 50" xmlns="http://www.w3.org/2000/svg">
-      <path d="M40 8 C32 3 18 3 6 6 V42 C18 39 32 39 40 44 Z" fill="var(--paper-2)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M40 8 C48 3 62 3 74 6 V42 C62 39 48 39 40 44 Z" fill="var(--paper-2)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
-      <line x1="14" y1="16" x2="32" y2="14" stroke="var(--ink)" stroke-width="1.5" opacity=".5"/>
-      <line x1="14" y1="24" x2="32" y2="22" stroke="var(--ink)" stroke-width="1.5" opacity=".5"/>
-      <line x1="48" y1="14" x2="66" y2="16" stroke="var(--ink)" stroke-width="1.5" opacity=".5"/>
-      <line x1="48" y1="22" x2="66" y2="24" stroke="var(--ink)" stroke-width="1.5" opacity=".5"/>
-    </svg>
-    <!-- mini bow paper clip -->
-    <svg class="doodle-5" style="--r:-16deg" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-      <rect x="6" y="6" width="28" height="28" rx="4" fill="var(--sage)" stroke="var(--ink)" stroke-width="2"/>
-      <path d="M12 14 H28 M12 20 H28 M12 26 H22" stroke="var(--paper)" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-    <!-- pen -->
-    <svg class="doodle-6" style="--r:18deg" viewBox="0 0 90 18" xmlns="http://www.w3.org/2000/svg">
-      <rect x="10" y="5" width="68" height="8" rx="3" fill="var(--ink)" />
-      <rect x="10" y="5" width="68" height="8" rx="3" fill="var(--blue-note)" opacity=".85"/>
-      <polygon points="2,9 10,3 10,15" fill="var(--ink)"/>
-      <rect x="78" y="5" width="8" height="8" rx="2" fill="var(--yellow)" stroke="var(--ink)" stroke-width="1.5"/>
-    </svg>
-  </div>
   <div class="hero-grid">
     <div>
       <span class="eyebrow" dir="ltr">✨ Write. Dream. Create.</span>
@@ -692,22 +742,8 @@
 </section>
 
 <section id="products">
-  <div class="section-doodles">
-    <svg style="top:6%; right:4%; width:50px; --r:-12deg" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 4 H46 V46 H14 L4 36 Z" fill="var(--yellow)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
-    </svg>
-    <svg style="bottom:8%; left:3%; width:64px; --r:10deg" viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
-      <rect x="4" y="2" width="52" height="66" rx="6" fill="var(--sage)" stroke="var(--ink)" stroke-width="2"/>
-      <line x1="14" y1="20" x2="46" y2="20" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="14" y1="32" x2="46" y2="32" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
-    </svg>
-    <svg style="top:40%; left:48%; width:80px; --r:18deg" viewBox="0 0 90 18" xmlns="http://www.w3.org/2000/svg">
-      <rect x="14" y="6" width="62" height="9" rx="2" fill="var(--blue-note)" stroke="var(--ink)" stroke-width="2"/>
-      <polygon points="4,10.5 14,4 14,17" fill="#E0A86B" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
-    </svg>
-  </div>
   <div class="section-head">
-    <span class="tag accent">المجموعة</span>
+    <span class="tag accent">Collection</span>
     <h2>كل قطعة بتحكي حكاية</h2>
     <p>من الدفتر اللي هيحتفظ بأفكارك، للستيكي نوت اللي هيفكّرك بأهم لحظاتك، وللاستيكرات اللي هتضيف لمستك الخاصة... صممنا كل تفصيلة علشان تشبهك</p>
   </div>
@@ -715,79 +751,115 @@
     <div class="pcard c1">
       <div class="icon">📒</div>
       <h3>Notebooks</h3>
-      <p>دوّني أفكارك، خططك، ومذكراتك اليومية في دفتر أنيق مصمم ليكون رفيقك في كل لحظة. 🤍</p>
+      <p>دوّن أفكارك، خططك، ومذكراتك اليومية في دفتر أنيق مصمم ليكون رفيقك في كل لحظة. 🤍</p>
     </div>
     <div class="pcard c2">
       <div class="icon">✨</div>
       <h3>Stickers</h3>
-      <p>زيّني اللاب توب، الدفاتر، التابلت، جراب الموبايل، أو أي مساحة تحبي تضيفي لها لمسة تعبر عن شخصيتك. 💫</p>
+      <p>زيّن اللاب توب، الدفاتر، التابلت، جراب الموبايل، أو أي مساحة تحب تضيف لها لمسة تعبر عن شخصيتك. 💫</p>
     </div>
     <div class="pcard c3">
       <div class="icon">📅</div>
       <h3>Daily Planner</h3>
-      <p>نظّمي يومك، رتّبي أولوياتك، وتابعي أهدافك اليومية لتنجزي أكثر بكل سهولة. ✅</p>
+      <p>نظّم يومك، رتّب أولوياتك، وتابع أهدافك اليومية لتنجز أكثر بكل سهولة. ✅</p>
     </div>
     <div class="pcard c4">
       <div class="icon">📝</div>
       <h3>Sticky Notes</h3>
-      <p>اكتبي تذكيراتك، مواعيدك، أو رسائلك اللطيفة والصقيها في أي مكان لتبقى كل مهامك أمام عينيك. 💕</p>
+      <p>اكتب تذكيراتك، مواعيدك، أو رسائلك اللطيفة والصقها في أي مكان لتبقى كل مهامك أمام عينيك. 💕</p>
     </div>
   </div>
 </section>
 
-<section id="gallery">
-  <div class="section-doodles">
-    <svg style="top:4%; left:4%; width:54px; --r:-14deg" viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
-      <rect x="4" y="2" width="52" height="66" rx="6" fill="var(--blue-note)" stroke="var(--ink)" stroke-width="2"/>
-      <line x1="14" y1="20" x2="46" y2="20" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="14" y1="32" x2="46" y2="32" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
-    </svg>
-    <svg style="bottom:6%; right:5%; width:78px; --r:20deg" viewBox="0 0 90 18" xmlns="http://www.w3.org/2000/svg">
-      <rect x="14" y="6" width="62" height="9" rx="2" fill="var(--yellow)" stroke="var(--ink)" stroke-width="2"/>
-      <polygon points="4,10.5 14,4 14,17" fill="#E0A86B" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
-    </svg>
-  </div>
+<section id="style">
   <div class="section-head">
-    <span class="tag accent">من الكولكشن</span>
-    <h2>شوف الألوان والتصاميم</h2>
-    <p>كل لون عنده موود مختلف، اختار اللي يشبهك النهاردة.</p>
+    <span class="tag accent" dir="ltr">Find Your Vibe</span>
+    <h2 dir="ltr">What's Your Style?</h2>
+    <p>اختار الستايل اللي يشبهك وهنوريك المنتجات المناسبة ليك</p>
   </div>
-  <div class="gallery">
-    <div class="gitem g1"><span>دفتر "الشروق" 🌅</span></div>
-    <div class="gitem g2"><span>نوت بوك "زيتوني" 🌿</span></div>
-    <div class="gitem g3"><span>استيكي نوت "سما" ☁️</span></div>
-    <div class="gitem g4"><span>استيكرات "شمس" ☀️</span></div>
-    <div class="gitem g5"><span>دفتر "تراب" 🤎</span></div>
-    <div class="gitem g6"><span>نوت بوك "بنفسج" 💜</span></div>
+  <div class="style-tabs">
+    <button class="style-btn active" data-style="cute">🌷 Cute</button>
+    <button class="style-btn" data-style="minimal">🤍 Minimal</button>
+    <button class="style-btn" data-style="creative">🎨 Creative</button>
+    <button class="style-btn" data-style="study">📚 Study</button>
   </div>
+  <div class="gallery" id="style-results"></div>
 </section>
 
-<section id="contact" style="padding-top:0;">
-  <div class="cta-band">
-    <div class="section-doodles">
-      <svg style="top:6%; left:6%; width:46px; --r:-12deg" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 4 H46 V46 H14 L4 36 Z" fill="var(--paper)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round" opacity=".5"/>
-      </svg>
-      <svg style="bottom:8%; right:7%; width:54px; --r:10deg" viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="2" width="52" height="66" rx="6" fill="var(--paper)" stroke="var(--ink)" stroke-width="2" opacity=".5"/>
-      </svg>
+<script>
+  var styleData = {
+    cute: [
+      {cls:'g1', label:''},
+      {cls:'g4', label:''},
+      {cls:'g6', label:''}
+    ],
+    minimal: [
+      {cls:'g3', label:''},
+      {cls:'g5', label:''},
+      {cls:'g2', label:''}
+    ],
+    creative: [
+      {cls:'g6', label:''},
+      {cls:'g4', label:''},
+      {cls:'g1', label:''}
+    ],
+    study: [
+      {cls:'g2', label:''},
+      {cls:'g3', label:''},
+      {cls:'g5', label:''}
+    ]
+  };
+
+  function renderStyle(key){
+    var container = document.getElementById('style-results');
+    container.innerHTML = '';
+    styleData[key].forEach(function(item){
+      var div = document.createElement('div');
+      div.className = 'gitem ' + item.cls;
+      div.innerHTML = '<span>' + item.label + '</span>';
+      container.appendChild(div);
+    });
+  }
+
+  document.querySelectorAll('.style-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.style-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderStyle(btn.getAttribute('data-style'));
+    });
+  });
+
+  renderStyle('cute');
+</script>
+
+<section id="connect" class="connect-section">
+  <div class="connect-card">
+    <span class="connect-mark">🤍</span>
+    <h2 dir="ltr">Let's Stay Connected</h2>
+    <p dir="ltr">Thank you for visiting My Note. We can't wait to be part of your next idea, plan, or story. If you have any questions, feel free to reach out—we're always happy to help.</p>
+    <div class="connect-links">
+      <a href="https://wa.me/20XXXXXXXXX" class="connect-link wa">
+        <span class="connect-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+            <path fill="currentColor" d="M16.004 3C9.377 3 4 8.373 4 15c0 2.34.664 4.523 1.813 6.379L4 29l7.797-1.773A11.93 11.93 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm0 21.9a9.86 9.86 0 0 1-5.03-1.377l-.36-.213-4.63 1.052 1.08-4.51-.235-.372A9.86 9.86 0 0 1 6.1 15c0-5.46 4.444-9.9 9.904-9.9 5.46 0 9.896 4.44 9.896 9.9s-4.436 9.9-9.896 9.9Zm5.42-7.41c-.297-.148-1.756-.867-2.028-.966-.272-.099-.47-.148-.668.148-.198.297-.767.966-.94 1.164-.173.198-.347.223-.644.075-.297-.148-1.254-.462-2.388-1.472-.883-.787-1.48-1.76-1.653-2.057-.173-.297-.019-.457.13-.605.133-.132.297-.347.446-.52.148-.173.198-.297.297-.495.099-.198.05-.372-.025-.52-.075-.148-.668-1.61-.915-2.204-.24-.578-.484-.5-.668-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.075-.792.372-.272.297-1.04 1.017-1.04 2.478 0 1.462 1.065 2.874 1.213 3.072.148.198 2.096 3.2 5.078 4.487.71.306 1.263.489 1.695.626.712.226 1.36.194 1.872.118.571-.085 1.756-.718 2.004-1.412.248-.693.248-1.288.173-1.412-.074-.124-.272-.198-.57-.347Z"/>
+          </svg>
+        </span>
+        <span dir="ltr">WhatsApp: +20 XXX XXX XXXX</span>
+      </a>
+      <a href="#" class="connect-link fb">
+        <span class="connect-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+            <path fill="currentColor" d="M22 12.06C22 6.505 17.523 2 12 2S2 6.505 2 12.06c0 5.02 3.657 9.184 8.438 9.94v-7.03H7.898v-2.91h2.54V9.845c0-2.522 1.492-3.916 3.777-3.916 1.094 0 2.238.196 2.238.196v2.475h-1.26c-1.243 0-1.63.775-1.63 1.57v1.89h2.773l-.443 2.91h-2.33V22c4.78-.756 8.437-4.92 8.437-9.94Z"/>
+          </svg>
+        </span>
+        <span dir="ltr">Facebook: My Note</span>
+      </a>
     </div>
-    <h2>عايز تكون أول واحد يعرف؟</h2>
-    <p>سجل إيميلك وهنبعتلك كل جديد قبل ما يعرف بيه حد.</p>
-    <form class="cta-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='تم التسجيل ✓';">
-      <input type="email" placeholder="إيميلك هنا" required>
-      <button type="submit">سجلني</button>
-    </form>
   </div>
 </section>
 
-<footer>
+<footer class="footer-slim">
   <div class="flogo">🎀My Note</div>
-  <div class="socials">
-    <a href="#" aria-label="Instagram">IG</a>
-    <a href="#" aria-label="Facebook">FB</a>
-    <a href="#" aria-label="TikTok">TT</a>
-  </div>
   <div>© 2026 My Note. كل الحقوق محفوظة.</div>
 </footer>
 
