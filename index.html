@@ -456,17 +456,22 @@
   .sticker-card:hover{transform:translateY(-6px); box-shadow:0 20px 35px rgba(43,43,51,0.18);}
   .sticker-img-wrap{
     width:100%;
-    height:280px;
+    height:320px;
     position:relative;
     overflow:hidden;
     cursor:zoom-in;
+    background:#f8f8f8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
   .sticker-img{
     width:100%;
     height:100%;
-    background-size:cover;
-    background-position:center;
+    object-fit:contain;
+    object-position:center;
     transition:transform .4s ease;
+    padding:16px;
   }
   .sticker-card:hover .sticker-img{transform:scale(1.05);}
   .sticker-img-wrap::after{
@@ -909,7 +914,7 @@
 <!-- Lightbox for image zoom -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
   <button class="lightbox-close" onclick="event.stopPropagation(); closeLightbox()">×</button>
-  <img id="lightbox-img" src="" alt="Sticker Preview">
+  <img id="lightbox-img" src="" alt="Sticker Preview" style="max-width:90vw; max-height:85vh; object-fit:contain;">
 </div>
 
 <script>
@@ -923,8 +928,15 @@
       name: "Purple Aesthetic Sticker Pack 💜",
       desc: "مجموعة استيكرات بنفسجي كيوت لتزيين اللاب توب والدفاتر والموبايل",
       price: "10 EGP",
-      img: "https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg",
+      img: "https://i.postimg.cc/NGXCksKT/1139551511985937155.jpg",
       badge: "Best Seller"
+    },
+    {
+      name: "Cute Lifestyle Sticker Set 🌸",
+      desc: "مجموعة استيكرات كيوت لمحبي القهوة، النباتات، والأجواء الهادية",
+      price: "15 EGP",
+      img: "https://i.postimg.cc/vZKrcKWL/k.jpg",
+      badge: "New"
     }
   ];
 
@@ -944,7 +956,7 @@
       var card = `
         <div class="sticker-card">
           <div class="sticker-img-wrap" onclick="openLightbox('${s.img}')">
-            <div class="sticker-img" style="background-image:url('${s.img}')"></div>
+            <img class="sticker-img" src="${s.img}" alt="${s.name}" loading="lazy">
             ${badge}
           </div>
 
