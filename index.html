@@ -375,6 +375,7 @@
     transition:transform .3s ease, box-shadow .3s ease;
     position:relative;
     overflow:hidden;
+    cursor:pointer;
   }
   .pcard:hover{transform:translateY(-8px); box-shadow:0 20px 35px rgba(43,43,51,0.18);}
   .pcard .icon{
@@ -391,6 +392,125 @@
   .pcard h3{font-size:1.25rem; margin:0 0 10px; font-weight:700;}
   .pcard p{font-size:.92rem; color:rgba(43,43,51,0.65); line-height:1.7; margin:0 0 18px;}
   .pcard .price{font-weight:800; font-family:'Kalam',cursive; font-size:1.1rem; color:var(--coral-dark);}
+
+  /* STICKER SHOP */
+  .sticker-shop{
+    display:none;
+    padding:110px 6%;
+    position:relative;
+    z-index:1;
+  }
+  .sticker-shop.active{
+    display:block;
+  }
+  .sticker-shop .section-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+    max-width:none;
+  }
+  .back-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 22px;
+    border-radius:30px;
+    border:2px solid var(--ink);
+    background:transparent;
+    color:var(--ink);
+    font-family:'Cairo',sans-serif;
+    font-weight:700;
+    font-size:.95rem;
+    cursor:pointer;
+    transition:all .25s ease;
+  }
+  .back-btn:hover{background:var(--ink); color:var(--paper);}
+  .sticker-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  .sticker-card{
+    background:#fff;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    border:1px solid var(--line);
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .sticker-card:hover{transform:translateY(-6px); box-shadow:0 20px 35px rgba(43,43,51,0.18);}
+  .sticker-img{
+    width:100%;
+    height:260px;
+    background-size:cover;
+    background-position:center;
+    position:relative;
+  }
+  .sticker-img::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%);
+  }
+  .sticker-badge{
+    position:absolute;
+    top:14px;
+    right:14px;
+    background:var(--coral);
+    color:#fff;
+    padding:5px 14px;
+    border-radius:20px;
+    font-size:.8rem;
+    font-weight:700;
+    z-index:1;
+  }
+  .sticker-info{
+    padding:22px;
+  }
+  .sticker-info h3{
+    font-size:1.15rem;
+    margin:0 0 6px;
+    font-weight:700;
+  }
+  .sticker-info p{
+    font-size:.88rem;
+    color:rgba(43,43,51,0.6);
+    margin:0 0 14px;
+    line-height:1.6;
+  }
+  .sticker-bottom{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .sticker-price{
+    font-family:'Kalam',cursive;
+    font-size:1.3rem;
+    font-weight:700;
+    color:var(--coral-dark);
+  }
+  .sticker-price span{
+    font-size:.85rem;
+    color:rgba(43,43,51,0.5);
+    font-family:'Cairo',sans-serif;
+    font-weight:400;
+  }
+  .add-btn{
+    background:var(--ink);
+    color:#fff;
+    border:none;
+    padding:10px 22px;
+    border-radius:10px;
+    font-weight:700;
+    font-family:'Cairo',sans-serif;
+    font-size:.9rem;
+    cursor:pointer;
+    transition:transform .2s ease, background .2s ease;
+  }
+  .add-btn:hover{transform:translateY(-2px); background:var(--coral-dark);}
 
   /* ABOUT / SIGNATURE STRIP */
   .strip{
@@ -434,62 +554,6 @@
     font-weight:800;
     font-family:'Cairo',sans-serif;
   }
-
-  /* GALLERY */
-  .gallery{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:24px;
-    position:relative;
-    z-index:1;
-  }
-
-  /* STYLE PICKER */
-  .style-tabs{
-    display:flex;
-    flex-wrap:wrap;
-    gap:14px;
-    margin-bottom:44px;
-    position:relative;
-    z-index:1;
-  }
-  .style-btn{
-    font-family:'Cairo',sans-serif;
-    font-weight:700;
-    font-size:1rem;
-    padding:14px 26px;
-    border-radius:30px;
-    border:2px solid var(--ink);
-    background:transparent;
-    color:var(--ink);
-    cursor:pointer;
-    transition:all .25s ease;
-  }
-  .style-btn:hover{transform:translateY(-3px);}
-  .style-btn.active{
-    background:var(--ink);
-    color:var(--paper);
-    box-shadow:var(--shadow);
-  }
-  .gitem{
-    border-radius:18px;
-    height:260px;
-    position:relative;
-    overflow:hidden;
-    display:flex;
-    align-items:flex-end;
-    padding:22px;
-    font-weight:700;
-    color:#fff;
-    box-shadow:var(--shadow);
-  }
-  .gitem span{font-family:'Kalam',cursive; font-size:1.3rem;}
-  .gitem.g1{background:linear-gradient(160deg,var(--coral),var(--coral-dark));}
-  .gitem.g2{background:linear-gradient(160deg,var(--sage),#5b6b3f);}
-  .gitem.g3{background:linear-gradient(160deg,var(--blue-note),#4c7a85);}
-  .gitem.g4{background:linear-gradient(160deg,var(--yellow),#c98f12); color:var(--ink);}
-  .gitem.g5{background:linear-gradient(160deg,#b08968,#7a5a3a);}
-  .gitem.g6{background:linear-gradient(160deg,#9c89b8,#6b5494);}
 
   /* NEWSLETTER */
   .cta-band{
@@ -638,13 +702,13 @@
     .stack{display:none;}
     h1{font-size:2.6rem;}
     .products{grid-template-columns:repeat(2,1fr);}
-    .gallery{grid-template-columns:repeat(2,1fr);}
+    .sticker-grid{grid-template-columns:repeat(2,1fr);}
     .strip{grid-template-columns:1fr;}
     nav ul{display:none;}
   }
   @media (max-width:560px){
     .products{grid-template-columns:1fr;}
-    .gallery{grid-template-columns:1fr;}
+    .sticker-grid{grid-template-columns:1fr;}
     h1{font-size:1.5rem;}
   }
 
@@ -653,12 +717,12 @@
   }
 </style>
 <base target="_blank">
+<base target="_blank">
 </head>
 <body class="intro-active">
 
 <div id="intro-screen">
   <div class="intro-doodles">
-    <!-- notebook -->
     <svg style="top:16%; left:14%; width:56px; --r:-10deg; animation-delay:1.6s" viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
       <rect x="4" y="2" width="52" height="66" rx="6" fill="var(--blue-note)" stroke="var(--ink)" stroke-width="2"/>
       <line x1="14" y1="20" x2="46" y2="20" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
@@ -669,32 +733,27 @@
       <circle cx="4" cy="42" r="2.4" fill="var(--ink)"/>
       <circle cx="4" cy="56" r="2.4" fill="var(--ink)"/>
     </svg>
-    <!-- pencil -->
     <svg style="top:24%; right:16%; width:70px; --r:22deg; animation-delay:1.8s" viewBox="0 0 90 20" xmlns="http://www.w3.org/2000/svg">
       <rect x="14" y="6" width="62" height="9" rx="2" fill="var(--yellow)" stroke="var(--ink)" stroke-width="2"/>
       <polygon points="4,10.5 14,4 14,17" fill="#E0A86B" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
       <rect x="76" y="6" width="10" height="9" rx="2" fill="var(--coral)" stroke="var(--ink)" stroke-width="2"/>
     </svg>
-    <!-- sheet of paper -->
     <svg style="bottom:24%; left:18%; width:42px; --r:-8deg; animation-delay:2.0s" viewBox="0 0 50 60" xmlns="http://www.w3.org/2000/svg">
       <rect x="4" y="2" width="42" height="56" rx="5" fill="#FFFFFF" stroke="var(--ink)" stroke-width="1.6"/>
       <line x1="12" y1="18" x2="38" y2="18" stroke="var(--paper-2)" stroke-width="1.6" stroke-linecap="round"/>
       <line x1="12" y1="28" x2="38" y2="28" stroke="var(--paper-2)" stroke-width="1.6" stroke-linecap="round"/>
       <line x1="12" y1="38" x2="30" y2="38" stroke="var(--paper-2)" stroke-width="1.6" stroke-linecap="round"/>
     </svg>
-    <!-- fountain pen -->
     <svg style="bottom:20%; right:14%; width:76px; --r:16deg; animation-delay:2.2s" viewBox="0 0 90 18" xmlns="http://www.w3.org/2000/svg">
       <rect x="10" y="5" width="68" height="8" rx="3" fill="var(--ink)" />
       <rect x="10" y="5" width="68" height="8" rx="3" fill="var(--sage)" opacity=".85"/>
       <polygon points="2,9 10,3 10,15" fill="var(--ink)"/>
       <rect x="78" y="5" width="8" height="8" rx="2" fill="var(--yellow)" stroke="var(--ink)" stroke-width="1.5"/>
     </svg>
-    <!-- torn note paper -->
     <svg style="top:10%; left:44%; width:38px; --r:-12deg; animation-delay:2.4s" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
       <path d="M4 4 H46 V46 H14 L4 36 Z" fill="var(--coral)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
       <path d="M4 36 H14 V46 Z" fill="var(--coral-dark)" stroke="var(--ink)" stroke-width="1.5" stroke-linejoin="round"/>
     </svg>
-    <!-- small notepad -->
     <svg style="bottom:8%; left:46%; width:44px; --r:8deg; animation-delay:2.6s" viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
       <rect x="4" y="2" width="52" height="66" rx="6" fill="var(--sage)" stroke="var(--ink)" stroke-width="2"/>
       <line x1="14" y1="20" x2="46" y2="20" stroke="var(--paper)" stroke-width="2.5" stroke-linecap="round"/>
@@ -722,7 +781,6 @@
   <nav>
     <ul>
       <li><a href="#products">المنتجات</a></li>
-      <li><a href="#style">ستايلك</a></li>
       <li><a href="#connect" class="nav-cta">اطلب دلوقتي</a></li>
     </ul>
   </nav>
@@ -753,10 +811,11 @@
       <h3>Notebooks</h3>
       <p>دوّن أفكارك، خططك، ومذكراتك اليومية في دفتر أنيق مصمم ليكون رفيقك في كل لحظة. 🤍</p>
     </div>
-    <div class="pcard c2">
+    <div class="pcard c2" onclick="openStickerShop()">
       <div class="icon">✨</div>
       <h3>Stickers</h3>
       <p>زيّن اللاب توب، الدفاتر، التابلت، جراب الموبايل، أو أي مساحة تحب تضيف لها لمسة تعبر عن شخصيتك. 💫</p>
+      <div class="price">اضغط للتصفح →</div>
     </div>
     <div class="pcard c3">
       <div class="icon">📅</div>
@@ -771,65 +830,71 @@
   </div>
 </section>
 
-<section id="style">
+<!-- STICKER SHOP -->
+<div id="sticker-shop" class="sticker-shop">
   <div class="section-head">
-    <span class="tag accent" dir="ltr">Find Your Vibe</span>
-    <h2 dir="ltr">What's Your Style?</h2>
-    <p>اختار الستايل اللي يشبهك وهنوريك المنتجات المناسبة ليك</p>
+    <div>
+      <span class="tag accent">✨ Sticker Collection</span>
+      <h2>اختار استيكرك المفضل</h2>
+      <p>كل استيكر مصمم بعناية علشان يضيف لمسة فريدة لحاجاتك</p>
+    </div>
+    <button class="back-btn" onclick="closeStickerShop()">← رجوع للمنتجات</button>
   </div>
-  <div class="style-tabs">
-    <button class="style-btn active" data-style="cute">🌷 Cute</button>
-    <button class="style-btn" data-style="minimal">🤍 Minimal</button>
-    <button class="style-btn" data-style="creative">🎨 Creative</button>
-    <button class="style-btn" data-style="study">📚 Study</button>
-  </div>
-  <div class="gallery" id="style-results"></div>
-</section>
+  <div class="sticker-grid" id="sticker-grid"></div>
+</div>
 
 <script>
-  var styleData = {
-    cute: [
-      {cls:'g1', label:''},
-      {cls:'g4', label:''},
-      {cls:'g6', label:''}
-    ],
-    minimal: [
-      {cls:'g3', label:''},
-      {cls:'g5', label:''},
-      {cls:'g2', label:''}
-    ],
-    creative: [
-      {cls:'g6', label:''},
-      {cls:'g4', label:''},
-      {cls:'g1', label:''}
-    ],
-    study: [
-      {cls:'g2', label:''},
-      {cls:'g3', label:''},
-      {cls:'g5', label:''}
-    ]
-  };
+  var stickers = [
+    {name:'Cute Bear Sticker', desc:'استيكر دب كيوت يناسب أي مكان', price:'25 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:'Best Seller'},
+    {name:'Floral Vibes', desc:'ورود رقيقة لأجواء الربيع', price:'20 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:'New'},
+    {name:'Pastel Dreams', desc:'ألوان باستيل هادية وناعمة', price:'22 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:''},
+    {name:'Kawaii Cat', desc:'قطة كاواي لمحبي الحيوانات', price:'28 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:'Hot'},
+    {name:'Minimal Line', desc:'خطوط بسيطة وأنيقة', price:'18 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:''},
+    {name:'Study Motivation', desc:'حافز للمذاكرة والتفوق', price:'24 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:''},
+    {name:'Coffee Lover', desc:'لعشاق القهوة والأجواء الدافئة', price:'26 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:'New'},
+    {name:'Star Gazer', desc:'نجوم وأقمار للأحلام الكبيرة', price:'21 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:''},
+    {name:'Tropical Vibes', desc:'أجواء استوائية منعشة', price:'23 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:''}
+  ];
 
-  function renderStyle(key){
-    var container = document.getElementById('style-results');
-    container.innerHTML = '';
-    styleData[key].forEach(function(item){
-      var div = document.createElement('div');
-      div.className = 'gitem ' + item.cls;
-      div.innerHTML = '<span>' + item.label + '</span>';
-      container.appendChild(div);
+  function renderStickers(){
+    var grid = document.getElementById('sticker-grid');
+    grid.innerHTML = '';
+    stickers.forEach(function(s){
+      var badgeHtml = s.badge ? '<div class="sticker-badge">'+s.badge+'</div>' : '';
+      var card = document.createElement('div');
+      card.className = 'sticker-card';
+      card.innerHTML =
+        '<div class="sticker-img" style="background-image:url(''+s.img+'')">'+badgeHtml+'</div>'+
+        '<div class="sticker-info">'+
+          '<h3>'+s.name+'</h3>'+
+          '<p>'+s.desc+'</p>'+
+          '<div class="sticker-bottom">'+
+            '<div class="sticker-price">'+s.price+' <span>للحبة</span></div>'+
+            '<button class="add-btn" onclick="orderSticker(''+s.name+'')">اطلب ✨</button>'+
+          '</div>'+
+        '</div>';
+      grid.appendChild(card);
     });
   }
 
-  document.querySelectorAll('.style-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      document.querySelectorAll('.style-btn').forEach(function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
-      renderStyle(btn.getAttribute('data-style'));
-    });
-  });
+  function openStickerShop(){
+    document.getElementById('sticker-shop').classList.add('active');
+    document.getElementById('products').style.display = 'none';
+    window.scrollTo({top: document.getElementById('sticker-shop').offsetTop - 80, behavior:'smooth'});
+    renderStickers();
+  }
 
-  renderStyle('cute');
+  function closeStickerShop(){
+    document.getElementById('sticker-shop').classList.remove('active');
+    document.getElementById('products').style.display = 'block';
+    window.scrollTo({top: document.getElementById('products').offsetTop - 80, behavior:'smooth'});
+  }
+
+  function orderSticker(name){
+    var msg = 'أهلاً! عايز أطلب استيكر: ' + name;
+    var wa = 'https://wa.me/20XXXXXXXXX?text=' + encodeURIComponent(msg);
+    window.open(wa, '_blank');
+  }
 </script>
 
 <section id="connect" class="connect-section">
