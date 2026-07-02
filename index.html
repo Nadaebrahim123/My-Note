@@ -384,7 +384,10 @@
     display:flex;align-items:center;justify-content:center;
     font-size:1.7rem;
     margin-bottom:20px;
+    cursor:pointer;
+    transition:transform .2s ease;
   }
+  .pcard .icon:hover{transform:scale(1.1);}
   .pcard.c1 .icon{background:rgba(232,127,168,0.15); color:var(--coral-dark);}
   .pcard.c2 .icon{background:rgba(240,189,62,0.2); color:#9c7611;}
   .pcard.c3 .icon{background:rgba(124,143,94,0.18); color:#54622f;}
@@ -392,6 +395,15 @@
   .pcard h3{font-size:1.25rem; margin:0 0 10px; font-weight:700;}
   .pcard p{font-size:.92rem; color:rgba(43,43,51,0.65); line-height:1.7; margin:0 0 18px;}
   .pcard .price{font-weight:800; font-family:'Kalam',cursive; font-size:1.1rem; color:var(--coral-dark);}
+  .pcard .click-hint{
+    font-size:.85rem;
+    font-weight:700;
+    color:var(--coral-dark);
+    margin-top:8px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
 
   /* STICKER SHOP */
   .sticker-shop{
@@ -812,10 +824,10 @@
       <p>دوّن أفكارك، خططك، ومذكراتك اليومية في دفتر أنيق مصمم ليكون رفيقك في كل لحظة. 🤍</p>
     </div>
     <div class="pcard c2" onclick="openStickerShop()">
-      <div class="icon">✨</div>
+      <div class="icon" onclick="event.stopPropagation(); openStickerShop()">✨</div>
       <h3>Stickers</h3>
       <p>زيّن اللاب توب، الدفاتر، التابلت، جراب الموبايل، أو أي مساحة تحب تضيف لها لمسة تعبر عن شخصيتك. 💫</p>
-      <div class="price">اضغط للتصفح →</div>
+      <div class="click-hint">اضغط على ✨ للتصفح →</div>
     </div>
     <div class="pcard c3">
       <div class="icon">📅</div>
@@ -845,15 +857,7 @@
 
 <script>
   var stickers = [
-    {name:'Cute Bear Sticker', desc:'استيكر دب كيوت يناسب أي مكان', price:'25 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:'Best Seller'},
-    {name:'Floral Vibes', desc:'ورود رقيقة لأجواء الربيع', price:'20 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:'New'},
-    {name:'Pastel Dreams', desc:'ألوان باستيل هادية وناعمة', price:'22 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:''},
-    {name:'Kawaii Cat', desc:'قطة كاواي لمحبي الحيوانات', price:'28 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:'Hot'},
-    {name:'Minimal Line', desc:'خطوط بسيطة وأنيقة', price:'18 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:''},
-    {name:'Study Motivation', desc:'حافز للمذاكرة والتفوق', price:'24 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:''},
-    {name:'Coffee Lover', desc:'لعشاق القهوة والأجواء الدافئة', price:'26 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:'New'},
-    {name:'Star Gazer', desc:'نجوم وأقمار للأحلام الكبيرة', price:'21 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:''},
-    {name:'Tropical Vibes', desc:'أجواء استوائية منعشة', price:'23 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:''}
+    {name:'استيكر كيوت', desc:'استيكر لطيف يناسب أي مكان', price:'10 EGP', img:'https://i.postimg.cc/23zxzfF8/1139551511985937155.jpg', badge:'Best Seller'}
   ];
 
   function renderStickers(){
