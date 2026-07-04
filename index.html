@@ -738,9 +738,13 @@
     flex:none;
   }
   .connect-link.wa .connect-icon{background:#25D366; color:#fff;}
+  .connect-link.wa-group .connect-icon{background:#128C7E; color:#fff;}
   .connect-link.fb .connect-icon{background:#1877F2; color:#fff;}
+  .connect-link.ig .connect-icon{background:linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color:#fff;}
   .connect-link.wa:hover{background:#25D366; color:#fff;}
+  .connect-link.wa-group:hover{background:#128C7E; color:#fff;}
   .connect-link.fb:hover{background:#1877F2; color:#fff;}
+  .connect-link.ig:hover{background:linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color:#fff;}
 
   .footer-slim{
     padding:26px 6% 36px;
@@ -784,6 +788,7 @@
     *{transition:none!important;}
   }
 </style>
+<base target="_blank">
 <base target="_blank">
 <base target="_blank">
 </head>
@@ -874,10 +879,11 @@
     <p>من الدفتر اللي هيحتفظ بأفكارك، للستيكي نوت اللي هيفكّرك بأهم لحظاتك، وللاستيكرات اللي هتضيف لمستك الخاصة... صممنا كل تفصيلة علشان تشبهك</p>
   </div>
   <div class="products">
-    <div class="pcard c1">
-      <div class="icon">📒</div>
+    <div class="pcard c1" onclick="openNotebookShop()">
+      <div class="icon" onclick="event.stopPropagation(); openNotebookShop()">📒</div>
       <h3>Notebooks</h3>
       <p>دوّن أفكارك، خططك، ومذكراتك اليومية في دفتر أنيق مصمم ليكون رفيقك في كل لحظة. 🤍</p>
+      <div class="click-hint">اضغط على 📒 للتصفح →</div>
     </div>
     <div class="pcard c2" onclick="openStickerShop()">
       <div class="icon" onclick="event.stopPropagation(); openStickerShop()">✨</div>
@@ -885,10 +891,11 @@
       <p>زيّن اللاب توب، الدفاتر، التابلت، جراب الموبايل، أو أي مساحة تحب تضيف لها لمسة تعبر عن شخصيتك. 💫</p>
       <div class="click-hint">اضغط على ✨ للتصفح →</div>
     </div>
-    <div class="pcard c3">
-      <div class="icon">📅</div>
+    <div class="pcard c3" onclick="openPlannerShop()">
+      <div class="icon" onclick="event.stopPropagation(); openPlannerShop()">📅</div>
       <h3>Daily Planner</h3>
       <p>نظّم يومك، رتّب أولوياتك، وتابع أهدافك اليومية لتنجز أكثر بكل سهولة. ✅</p>
+      <div class="click-hint">اضغط على 📅 للتصفح →</div>
     </div>
     <div class="pcard c4">
       <div class="icon">📝</div>
@@ -925,18 +932,25 @@
 
   var stickers = [
     {
-      name: "Purple Aesthetic Sticker Pack 💜",
-      desc: "مجموعة استيكرات بنفسجي كيوت لتزيين اللاب توب والدفاتر والموبايل",
-      price: "10 EGP",
-      img: "https://i.postimg.cc/NGXCksKT/1139551511985937155.jpg",
+      name: "الشيت الأول 🐱",
+      desc: "استيكرات كيوت: قطة، قهوة، سماعات، كاميرا وأكثر",
+      price: "20 EGP",
+      img: "https://i.postimg.cc/rF2hXj11/Chat-GPT-Image-4-ywlyw-2026-11-37-41-s-(4).png",
       badge: "Best Seller"
     },
     {
-      name: "Cute Lifestyle Sticker Set 🌸",
-      desc: "مجموعة استيكرات كيوت لمحبي القهوة، النباتات، والأجواء الهادية",
-      price: "15 EGP",
-      img: "https://i.postimg.cc/vZKrcKWL/k.jpg",
+      name: "الشيت الثاني 🌙",
+      desc: "استيكرات هادية: قمر، قطة نايمة، قهوة، ورد وأكثر",
+      price: "20 EGP",
+      img: "https://i.postimg.cc/9fkpxYXk/Chat-GPT-Image-4-ywlyw-2026-11-37-41-s-(3).png",
       badge: "New"
+    },
+    {
+      name: "الشيت الثالث 🌿",
+      desc: "استيكرات تحفيزية: نباتات، كرواسان، منبه، وأكثر",
+      price: "20 EGP",
+      img: "https://i.postimg.cc/kGQvgrQN/Chat-GPT-Image-4-ywlyw-2026-11-37-41-s-(2).png",
+      badge: "Hot"
     }
   ];
 
@@ -1025,6 +1039,198 @@
   });
 </script>
 
+<!-- PLANNER SHOP -->
+<div id="planner-shop" class="sticker-shop">
+  <div class="section-head">
+    <div>
+      <span class="tag accent">📅 Planner Collection</span>
+      <h2>اختار بلانرك المفضل</h2>
+      <p>بلانرات أنيقة لتنظيم يومك بأسلوب مميز</p>
+    </div>
+    <button class="back-btn" onclick="closePlannerShop()">← رجوع للمنتجات</button>
+  </div>
+  <div class="sticker-grid" id="planner-grid"></div>
+</div>
+
+<script>
+  var planners = [
+    {
+      name: "Aesthetic Daily Planner 📅",
+      desc: "بلانر يومي أنيق لتنظيم مهامك وأهدافك بأسلوب جذاب",
+      price: "50 EGP",
+      img: "https://i.postimg.cc/wvvmm24R/Chat-GPT-Image-Jul-4-2026-06-17-31-AM.png",
+      badge: "Best Seller"
+    }
+  ];
+
+  function renderPlanners() {
+    var grid = document.getElementById("planner-grid");
+    grid.innerHTML = "";
+
+    planners.forEach(function(s) {
+      var badgeClass = "";
+      if (s.badge === "New") badgeClass = "new";
+      if (s.badge === "Hot") badgeClass = "hot";
+
+      var badge = s.badge
+        ? `<div class="sticker-badge ${badgeClass}">${s.badge}</div>`
+        : "";
+
+      var card = `
+        <div class="sticker-card">
+          <div class="sticker-img-wrap" onclick="openLightbox('${s.img}')">
+            <img class="sticker-img" src="${s.img}" alt="${s.name}" loading="lazy">
+            ${badge}
+          </div>
+
+          <div class="sticker-info">
+            <h3>${s.name}</h3>
+            <p>${s.desc}</p>
+
+            <div class="sticker-bottom">
+              <div class="sticker-price">
+                ${s.price}
+              </div>
+
+              <button class="add-btn" onclick="orderPlanner('${s.name}')">
+                اطلب ✨
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      grid.innerHTML += card;
+    });
+  }
+
+  function openPlannerShop() {
+    document.getElementById("planner-shop").classList.add("active");
+    document.getElementById("products").style.display = "none";
+    document.getElementById("sticker-shop").classList.remove("active");
+    window.scrollTo({
+      top: document.getElementById("planner-shop").offsetTop - 80,
+      behavior: "smooth"
+    });
+    renderPlanners();
+  }
+
+  function closePlannerShop() {
+    document.getElementById("planner-shop").classList.remove("active");
+    document.getElementById("products").style.display = "block";
+    window.scrollTo({
+      top: document.getElementById("products").offsetTop - 80,
+      behavior: "smooth"
+    });
+  }
+
+  function orderPlanner(name) {
+    var msg = "أهلاً! عايز أطلب بلانر: " + name;
+    var wa = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+    window.open(wa, "_blank");
+  }
+</script>
+
+<!-- NOTEBOOK SHOP -->
+<div id="notebook-shop" class="sticker-shop">
+  <div class="section-head">
+    <div>
+      <span class="tag accent">📒 Notebook Collection</span>
+      <h2>اختار دفترك المفضل</h2>
+      <p>دفاتر أنيقة لكل أفكارك ومذكراتك</p>
+    </div>
+    <button class="back-btn" onclick="closeNotebookShop()">← رجوع للمنتجات</button>
+  </div>
+  <div class="sticker-grid" id="notebook-grid"></div>
+</div>
+
+<script>
+  var notebooks = [
+    {
+      name: "Notebook 100 Pages 📒",
+      desc: "دفتر 100 صفحة أنيق لجميع أفكارك ومذكراتك",
+      price: "100 EGP",
+      img: "https://i.postimg.cc/nzrYKpS0/Chat-GPT-Image-Jul-4-2026-07-16-46-AM.png",
+      badge: "Best Seller"
+    },
+    {
+      name: "Notebook 50 Pages 📓",
+      desc: "دفتر 50 صفحة مدمج سهل الحمل لأفكارك السريعة",
+      price: "50 EGP",
+      img: "https://i.postimg.cc/nzrYKpS0/Chat-GPT-Image-Jul-4-2026-07-16-46-AM.png",
+      badge: "New"
+    }
+  ];
+
+  function renderNotebooks() {
+    var grid = document.getElementById("notebook-grid");
+    grid.innerHTML = "";
+
+    notebooks.forEach(function(s) {
+      var badgeClass = "";
+      if (s.badge === "New") badgeClass = "new";
+      if (s.badge === "Hot") badgeClass = "hot";
+
+      var badge = s.badge
+        ? `<div class="sticker-badge ${badgeClass}">${s.badge}</div>`
+        : "";
+
+      var card = `
+        <div class="sticker-card">
+          <div class="sticker-img-wrap" onclick="openLightbox('${s.img}')">
+            <img class="sticker-img" src="${s.img}" alt="${s.name}" loading="lazy">
+            ${badge}
+          </div>
+
+          <div class="sticker-info">
+            <h3>${s.name}</h3>
+            <p>${s.desc}</p>
+
+            <div class="sticker-bottom">
+              <div class="sticker-price">
+                ${s.price}
+              </div>
+
+              <button class="add-btn" onclick="orderNotebook('${s.name}')">
+                اطلب ✨
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      grid.innerHTML += card;
+    });
+  }
+
+  function openNotebookShop() {
+    document.getElementById("notebook-shop").classList.add("active");
+    document.getElementById("products").style.display = "none";
+    document.getElementById("sticker-shop").classList.remove("active");
+    document.getElementById("planner-shop").classList.remove("active");
+    window.scrollTo({
+      top: document.getElementById("notebook-shop").offsetTop - 80,
+      behavior: "smooth"
+    });
+    renderNotebooks();
+  }
+
+  function closeNotebookShop() {
+    document.getElementById("notebook-shop").classList.remove("active");
+    document.getElementById("products").style.display = "block";
+    window.scrollTo({
+      top: document.getElementById("products").offsetTop - 80,
+      behavior: "smooth"
+    });
+  }
+
+  function orderNotebook(name) {
+    var msg = "أهلاً! عايز أطلب دفتر: " + name;
+    var wa = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
+    window.open(wa, "_blank");
+  }
+</script>
+
 <section id="connect" class="connect-section">
   <div class="connect-card">
     <span class="connect-mark">🤍</span>
@@ -1039,13 +1245,29 @@
         </span>
         <span dir="ltr">WhatsApp: +20 121 093 3566</span>
       </a>
-      <a href="#" class="connect-link fb">
+      <a href="https://chat.whatsapp.com/Gdnfc5x3JYJHm4hoKU1CoA" class="connect-link wa-group">
+        <span class="connect-icon">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+            <path fill="currentColor" d="M16.004 3C9.377 3 4 8.373 4 15c0 2.34.664 4.523 1.813 6.379L4 29l7.797-1.773A11.93 11.93 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3Zm0 21.9a9.86 9.86 0 0 1-5.03-1.377l-.36-.213-4.63 1.052 1.08-4.51-.235-.372A9.86 9.86 0 0 1 6.1 15c0-5.46 4.444-9.9 9.904-9.9 5.46 0 9.896 4.44 9.896 9.9s-4.436 9.9-9.896 9.9Zm5.42-7.41c-.297-.148-1.756-.867-2.028-.966-.272-.099-.47-.148-.668.148-.198.297-.767.966-.94 1.164-.173.198-.347.223-.644.075-.297-.148-1.254-.462-2.388-1.472-.883-.787-1.48-1.76-1.653-2.057-.173-.297-.019-.457.13-.605.133-.132.297-.347.446-.52.148-.173.198-.297.297-.495.099-.198.05-.372-.025-.52-.075-.148-.668-1.61-.915-2.204-.24-.578-.484-.5-.668-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.075-.792.372-.272.297-1.04 1.017-1.04 2.478 0 1.462 1.065 2.874 1.213 3.072.148.198 2.096 3.2 5.078 4.487.71.306 1.263.489 1.695.626.712.226 1.36.194 1.872.118.571-.085 1.756-.718 2.004-1.412.248-.693.248-1.288.173-1.412-.074-.124-.272-.198-.57-.347Z"/>
+          </svg>
+        </span>
+        <span dir="ltr">WhatsApp Group</span>
+      </a>
+      <a href="https://www.facebook.com/share/1DujamZxFt/" class="connect-link fb">
         <span class="connect-icon">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
             <path fill="currentColor" d="M22 12.06C22 6.505 17.523 2 12 2S2 6.505 2 12.06c0 5.02 3.657 9.184 8.438 9.94v-7.03H7.898v-2.91h2.54V9.845c0-2.522 1.492-3.916 3.777-3.916 1.094 0 2.238.196 2.238.196v2.475h-1.26c-1.243 0-1.63.775-1.63 1.57v1.89h2.773l-.443 2.91h-2.33V22c4.78-.756 8.437-4.92 8.437-9.94Z"/>
           </svg>
         </span>
         <span dir="ltr">Facebook: My Note</span>
+      </a>
+      <a href="https://www.instagram.com/shop.mynote?igsh=MXUzOTIwNHY0bTNmOQ==" class="connect-link ig">
+        <span class="connect-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+            <path fill="currentColor" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </span>
+        <span dir="ltr">Instagram: shop.mynote</span>
       </a>
     </div>
   </div>
