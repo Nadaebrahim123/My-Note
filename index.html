@@ -1469,9 +1469,10 @@
       grandTotal += itemTotal;
       var typeLabel = item.type === "sticker" ? "استيكر" : item.type === "planner" ? "بلانر" : "دفتر";
       msg += "\n• " + typeLabel + ": " + item.name + "\n  الكمية: " + item.qty + " | السعر: " + itemTotal + " EGP";
-      msg += "\n  🖼️ الصورة: " + item.img;
+
     });
     msg += "\n\n💰 السعر الكلي: " + grandTotal + " EGP";
+    msg += "\n\n🌹 Thank You! Your order has been sent successfully. We'll get back to you very soon. 💕";
     var wa = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
     window.open(wa, "_blank");
     cart = [];
@@ -1793,7 +1794,7 @@
     </div>
     <div class="order-actions">
       <button class="cancel-btn" onclick="closeCheckout()">رجوع</button>
-      <button class="confirm-btn" onclick="sendCartOrder()">إرسال للواتساب </button>
+      <button class="confirm-btn" onclick="sendCartOrder()">إرسال للواتساب ✨</button>
     </div>
   </div>
 </div>
