@@ -1226,10 +1226,11 @@
       <p>نظّم يومك، رتّب أولوياتك، وتابع أهدافك اليومية لتنجز أكثر بكل سهولة. ✅</p>
       <div class="click-hint">اضغط على 📅 للتصفح →</div>
     </div>
-    <div class="pcard c4">
-      <div class="icon">📝</div>
+    <div class="pcard c4" onclick="openStickyShop()">
+      <div class="icon" onclick="event.stopPropagation(); openStickyShop()">📝</div>
       <h3>Sticky Notes</h3>
       <p>اكتب تذكيراتك، مواعيدك، أو رسائلك اللطيفة والصقها في أي مكان لتبقى كل مهامك أمام عينيك. 💕</p>
+      <div class="click-hint">اضغط على 📝 للتصفح →</div>
     </div>
   </div>
 </section>
@@ -1467,7 +1468,7 @@
     cart.forEach(function(item) {
       var itemTotal = item.price * item.qty;
       grandTotal += itemTotal;
-      var typeLabel = item.type === "sticker" ? "استيكر" : item.type === "planner" ? "بلانر" : "دفتر";
+      var typeLabel = item.type === "sticker" ? "استيكر" : item.type === "planner" ? "بلانر" : item.type === "sticky" ? "ستيكي نوت" : "دفتر";
       msg += "\n• " + typeLabel + ": " + item.name + "\n  الكمية: " + item.qty + " | السعر: " + itemTotal + " EGP";
 
     });
@@ -1712,6 +1713,99 @@
   function orderNotebook(name) {
     var n = notebooks.find(function(x){ return x.name === name; });
     if (n) addToCart(n.name, n.price, n.img, "notebook");
+  }
+</script>
+
+<!-- STICKY NOTES SHOP -->
+<div id="sticky-shop" class="sticker-shop">
+  <div class="section-head">
+    <div>
+      <span class="tag accent">📝 Sticky Notes Collection</span>
+      <h2>اختار الستيكي نوت المفضل ليك</h2>
+      <p>ستيكي نوت أنيقة لتذكيراتك ورسائلك اللطيفة</p>
+    </div>
+    <button class="back-btn" onclick="closeStickyShop()">← رجوع للمنتجات</button>
+  </div>
+  <div class="sticker-grid" id="sticky-grid"></div>
+</div>
+
+<script>
+  var stickyNotes = [
+    {
+      name: "Sticky Notes 50 Page 📝",
+      desc: "ستيكي نوت 50 ورقة بغلاف هارد كافر كيوت وعملي، مثالية لتدوين ملاحظاتك وتذكيراتك اليومية",
+      price: "50 EGP",
+      img: "https://i.postimg.cc/nhj0JQxn/Chat-GPT-Image-17-aghsts-2026-12-18-38-m.png",
+      badge: "New"
+    }
+  ];
+
+  function renderStickyNotes() {
+    var grid = document.getElementById("sticky-grid");
+    grid.innerHTML = "";
+
+    stickyNotes.forEach(function(s) {
+      var badgeClass = "";
+      if (s.badge === "New") badgeClass = "new";
+      if (s.badge === "Hot") badgeClass = "hot";
+
+      var badge = s.badge
+        ? `<div class="sticker-badge ${badgeClass}">${s.badge}</div>`
+        : "";
+
+      var card = `
+        <div class="sticker-card">
+          <div class="sticker-img-wrap" onclick="openLightbox('${s.img}')">
+            <img class="sticker-img" src="${s.img}" alt="${s.name}" loading="lazy">
+            ${badge}
+          </div>
+
+          <div class="sticker-info">
+            <h3>${s.name}</h3>
+            <p>${s.desc}</p>
+
+            <div class="sticker-bottom">
+              <div class="sticker-price">
+                ${s.price}
+              </div>
+
+              <button class="add-btn" onclick="orderStickyNote('${s.name}')">
+                أضف للسلة ✨
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      grid.innerHTML += card;
+    });
+  }
+
+  function openStickyShop() {
+    document.getElementById("sticky-shop").classList.add("active");
+    document.getElementById("products").style.display = "none";
+    document.getElementById("sticker-shop").classList.remove("active");
+    document.getElementById("planner-shop").classList.remove("active");
+    document.getElementById("notebook-shop").classList.remove("active");
+    window.scrollTo({
+      top: document.getElementById("sticky-shop").offsetTop - 80,
+      behavior: "smooth"
+    });
+    renderStickyNotes();
+  }
+
+  function closeStickyShop() {
+    document.getElementById("sticky-shop").classList.remove("active");
+    document.getElementById("products").style.display = "block";
+    window.scrollTo({
+      top: document.getElementById("products").offsetTop - 80,
+      behavior: "smooth"
+    });
+  }
+
+  function orderStickyNote(name) {
+    var n = stickyNotes.find(function(x){ return x.name === name; });
+    if (n) addToCart(n.name, n.price, n.img, "sticky");
   }
 </script>
 
